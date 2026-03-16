@@ -1,12 +1,31 @@
-# 🧠 LLM Fine-Tuning for Research Paper Summarization
+# 🚀 Fine-Tuning an LLM for AI Research Paper Summarization (PEFT + LoRA)
 
-> Fine-tuning **TinyLlama-1.1B** on the ArXiv Research Paper Dataset using **LoRA (PEFT)** to generate concise, domain-aware summaries of AI research abstracts.
+<div align="center">
+
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![HuggingFace](https://img.shields.io/badge/Hugging%20Face-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black)
+![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
+![Google Colab](https://img.shields.io/badge/Google%20Colab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=white)
+![LoRA](https://img.shields.io/badge/PEFT-LoRA-blueviolet?style=for-the-badge)
+
+</div>
+
+---
+
+## 📌 Overview
+
+This project demonstrates an **end-to-end pipeline** for fine-tuning a Large Language Model (LLM) to generate high-quality summaries of AI research papers. Using **Parameter-Efficient Fine-Tuning (PEFT) with LoRA**, the model is adapted efficiently with minimal computational resources.
+
+The system is trained on real-world research data and evaluated using both quantitative metrics and qualitative analysis, showcasing practical LLM engineering skills.
 
 ---
 
 ## 📋 Table of Contents
 
-- [Tech Stack](#-tech-stack)
+- [Objectives](#-objectives)
+- [Key Concepts Covered](#-key-concepts-covered)
+- [Project Architecture](#%EF%B8%8F-project-architecture)
+- [Tech Stack](#%EF%B8%8F-tech-stack)
 - [Dataset](#-dataset)
 - [Model](#-model)
 - [Training Strategy](#-training-strategy)
@@ -21,9 +40,50 @@
 
 ---
 
+## 🎯 Objectives
+
+- Fine-tune an open-source LLM for domain-specific summarization
+- Apply PEFT (LoRA) to reduce training cost and memory usage
+- Build a complete LLM training pipeline using modern tools
+- Evaluate model performance using ROUGE metrics and human analysis
+- Demonstrate real-world GenAI application development
+
+---
+
+## 🧠 Key Concepts Covered
+
+<div align="center">
+
+| Concept | Concept |
+|:---:|:---:|
+| 🤖 Large Language Models (LLMs) | 🏗️ Transformer Architecture |
+| 💬 Prompt Engineering | ⚡ Parameter-Efficient Fine-Tuning (PEFT) |
+| 🔩 LoRA (Low-Rank Adaptation) | 📐 Model Evaluation (ROUGE) |
+| 🤗 Hugging Face Training Pipeline | |
+
+</div>
+
+---
+
+## 🏗️ Project Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                     LLM Fine-Tuning Pipeline                        │
+├──────────────┬──────────────┬──────────────┬────────────────────────┤
+│  📦 Dataset  │ ⚙️ Preprocess │ 🔩 LoRA/PEFT │  🏋️ Train & Evaluate  │
+│              │              │              │                        │
+│  ArXiv Paper │  Tokenize &  │  Apply Low-  │  Fine-tune TinyLlama  │
+│  Abstracts & │  Format      │  Rank        │  → ROUGE Metrics      │
+│  Summaries   │  Prompts     │  Adapters    │  → Output Comparison  │
+└──────────────┴──────────────┴──────────────┴────────────────────────┘
+```
+
+---
+
 ## ⚙️ Tech Stack
 
-| Category | Tools |
+| Category | Tool |
 |---|---|
 | **Language** | Python |
 | **Model Hub** | Hugging Face Transformers |
@@ -67,11 +127,11 @@
 |---|---|
 | **ROUGE-1** | Unigram overlap between generated and reference summaries |
 | **ROUGE-2** | Bigram overlap for phrase-level accuracy |
-| **ROUGE-L** | Longest common subsequence for fluency |
+| **ROUGE-L** | Longest common subsequence for fluency and structure |
 
 ### Qualitative Analysis
 
-Comparison of model outputs **before** and **after** fine-tuning to evaluate:
+Comparison of model outputs before and after fine-tuning to evaluate:
 
 - Summary coherence
 - Relevance
@@ -81,7 +141,7 @@ Comparison of model outputs **before** and **after** fine-tuning to evaluate:
 
 ## 📈 Results
 
-| Dimension | 🔹 Before Fine-Tuning | 🔹 After Fine-Tuning |
+| Dimension | 🔴 Before Fine-Tuning | 🟢 After Fine-Tuning |
 |---|---|---|
 | **Summary Quality** | Generic summaries | More structured and relevant summaries |
 | **Domain Awareness** | Less domain awareness | Improved domain understanding |
@@ -96,12 +156,12 @@ Comparison of model outputs **before** and **after** fine-tuning to evaluate:
 AI Research Abstract
 ```
 
-**Base Model Output:**
+**🔴 Base Model Output:**
 ```
 Generic summary with limited context.
 ```
 
-**Fine-Tuned Model Output:**
+**🟢 Fine-Tuned Model Output:**
 ```
 Concise, structured summary capturing key research contributions.
 ```
@@ -110,30 +170,33 @@ Concise, structured summary capturing key research contributions.
 
 ## 🚀 How to Run
 
-1. **Open the notebook** in Google Colab
-2. **Enable GPU runtime** *(Runtime → Change runtime type → T4 GPU)*
-3. **Install required dependencies**
-4. **Run all cells step-by-step:**
+**1.** Open the notebook in **Google Colab**
+
+**2.** Enable **GPU runtime** *(Runtime → Change runtime type → T4 GPU)*
+
+**3.** Install required dependencies
+
+**4.** Run all cells step-by-step:
 
 ```
-Step 1 → Load dataset
-Step 2 → Preprocess data
-Step 3 → Apply LoRA (PEFT)
-Step 4 → Train model
-Step 5 → Evaluate results
-Step 6 → Generate summaries
+01  Load dataset
+02  Preprocess data
+03  Apply LoRA (PEFT)
+04  Train model
+05  Evaluate results
+06  Generate summaries
 ```
 
 ---
 
 ## 📌 Project Highlights
 
-| Highlight | Detail |
-|---|---|
-| ⏱️ **Time-Constrained** | Completed in a **1-day sprint** |
-| 🛠️ **Practical Skills** | Demonstrates **real LLM fine-tuning workflow** |
-| 📦 **Real-World Data** | Uses **ArXiv dataset** with genuine research content |
-| 🏭 **Industry Tools** | Built with **standard, production-grade tools** |
+| | Highlight | Detail |
+|---|---|---|
+| ⏱️ | **Time-Constrained** | Completed in a **time-constrained environment (1 day)** |
+| 🛠️ | **Practical Skills** | Demonstrates **practical LLM fine-tuning skills** |
+| 📦 | **Real-World Data** | Uses **real-world dataset and evaluation techniques** |
+| 🏭 | **Industry Tools** | Built with **industry-standard tools and workflow** |
 
 ---
 
@@ -158,13 +221,15 @@ Step 6 → Generate summaries
 
 If you found this project interesting or would like to collaborate, feel free to connect!
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=for-the-badge&logo=linkedin)](www.linkedin.com/in/ransiluranasinghe)
-[![GitHub](https://img.shields.io/badge/GitHub-Follow-black?style=for-the-badge&logo=github)](https://github.com/RansiluRanasinghe)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Your%20Profile-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](www.linkedin.com/in/ransiluranasinghe)
+[![GitHub](https://img.shields.io/badge/GitHub-Your%20Profile-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/RansiluRanasinghe)
 
 ---
 
 <div align="center">
 
 ⭐ **If you like this project, consider giving it a star!** ⭐
+
+*Built with ❤️ using open-source AI tools*
 
 </div>
