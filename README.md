@@ -1,13 +1,25 @@
-# 🚀 Fine-Tuning an LLM for AI Research Paper Summarization (PEFT + LoRA)
+---
+library_name: transformers
+tags:
+- summarization
+- llm
+- peft
+- lora
+- generative-ai
+- huggingface
+---
 
 <div align="center">
 
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![HuggingFace](https://img.shields.io/badge/Hugging%20Face-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black)
-![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
-![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white)
-![Google Colab](https://img.shields.io/badge/Google%20Colab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=white)
-![LoRA](https://img.shields.io/badge/PEFT-LoRA-blueviolet?style=for-the-badge)
+# 🚀 Fine-Tuning TinyLlama for AI Research Paper Summarization
+### PEFT + LoRA · ArXiv Dataset · Hugging Face Hub
+
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
+![HuggingFace](https://img.shields.io/badge/Hugging%20Face-FFD21E?style=flat-square&logo=huggingface&logoColor=black)
+![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=flat-square&logo=pytorch&logoColor=white)
+![LoRA](https://img.shields.io/badge/PEFT-LoRA-8B5CF6?style=flat-square)
+![Colab](https://img.shields.io/badge/Google%20Colab-F9AB00?style=flat-square&logo=googlecolab&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-22C55E?style=flat-square)
 
 </div>
 
@@ -15,9 +27,9 @@
 
 ## 📌 Overview
 
-This project demonstrates an **end-to-end pipeline** for fine-tuning a Large Language Model (LLM) to generate high-quality summaries of AI research papers. Using **Parameter-Efficient Fine-Tuning (PEFT) with LoRA**, the model is adapted efficiently with minimal computational resources.
+This project demonstrates an **end-to-end pipeline** for fine-tuning a Large Language Model (LLM) to generate high-quality summaries of AI research paper abstracts.
 
-The system is trained on real-world research data and evaluated using both quantitative metrics and qualitative analysis, showcasing practical LLM engineering skills.
+Using **Parameter-Efficient Fine-Tuning (PEFT)** with **LoRA**, the base model is adapted efficiently with minimal computational resources. The project includes dataset preparation, prompt engineering, model training, evaluation using ROUGE metrics, and deployment to Hugging Face Hub.
 
 ---
 
@@ -31,23 +43,24 @@ The system is trained on real-world research data and evaluated using both quant
 - [Model](#-model)
 - [Training Strategy](#-training-strategy)
 - [Evaluation](#-evaluation)
-- [Results](#-results)
 - [Example Output](#-example-output)
 - [How to Run](#-how-to-run)
+- [Model Deployment](#-model-deployment)
 - [Project Highlights](#-project-highlights)
+- [Limitations](#%EF%B8%8F-limitations)
 - [Future Improvements](#-future-improvements)
 - [Acknowledgements](#-acknowledgements)
-- [Connect with Me](#-connect-with-me)
+- [Author & Contact](#-author)
 
 ---
 
 ## 🎯 Objectives
 
 - Fine-tune an open-source LLM for domain-specific summarization
-- Apply PEFT (LoRA) to reduce training cost and memory usage
-- Build a complete LLM training pipeline using modern tools
-- Evaluate model performance using ROUGE metrics and human analysis
-- Demonstrate real-world GenAI application development
+- Apply PEFT (LoRA) for efficient training
+- Build a complete LLM pipeline using industry-standard tools
+- Evaluate performance using quantitative and qualitative methods
+- Deploy a fine-tuned model for real-world usage
 
 ---
 
@@ -69,15 +82,15 @@ The system is trained on real-world research data and evaluated using both quant
 ## 🏗️ Project Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────────────┐
-│                     LLM Fine-Tuning Pipeline                        │
-├──────────────┬──────────────┬──────────────┬────────────────────────┤
-│  📦 Dataset  │ ⚙️ Preprocess │ 🔩 LoRA/PEFT │  🏋️ Train & Evaluate  │
-│              │              │              │                        │
-│  ArXiv Paper │  Tokenize &  │  Apply Low-  │  Fine-tune TinyLlama  │
-│  Abstracts & │  Format      │  Rank        │  → ROUGE Metrics      │
-│  Summaries   │  Prompts     │  Adapters    │  → Output Comparison  │
-└──────────────┴──────────────┴──────────────┴────────────────────────┘
+┌──────────────────────────────────────────────────────────────────────────┐
+│                        LLM Fine-Tuning Pipeline                          │
+├─────────────┬──────────────┬──────────────┬──────────────┬───────────────┤
+│ 📦 Dataset  │ ⚙️ Preprocess │ 🔩 LoRA/PEFT │ 🏋️ Train     │ 🚀 Deploy     │
+│             │              │              │              │               │
+│ ArXiv       │ Tokenize &   │ Apply Low-   │ Fine-tune    │ Push adapter  │
+│ abstracts   │ format       │ Rank         │ TinyLlama    │ to HF Hub     │
+│ + summaries │ prompts      │ adapters     │ → ROUGE eval │               │
+└─────────────┴──────────────┴──────────────┴──────────────┴───────────────┘
 ```
 
 ---
@@ -90,7 +103,7 @@ The system is trained on real-world research data and evaluated using both quant
 | **Model Hub** | Hugging Face Transformers |
 | **Data** | Hugging Face Datasets |
 | **Fine-Tuning** | PEFT (LoRA) |
-| **Training** | TRL (Transformer Reinforcement Learning) |
+| **Training** | TRL |
 | **Evaluation** | Evaluate (ROUGE Metrics) |
 | **Environment** | Google Colab (GPU Training) |
 
@@ -98,73 +111,86 @@ The system is trained on real-world research data and evaluated using both quant
 
 ## 📊 Dataset
 
-- **ArXiv Research Paper Dataset**
-- Contains real-world AI research abstracts and summaries
-- Subsampled for efficient training and experimentation
+| Property | Value |
+|---|---|
+| **Dataset** | ArXiv Research Paper Dataset (`ccdv/arxiv-summarization`) |
+| **Training Samples** | 1,500 |
+| **Validation Samples** | 100 |
+| **Domain** | AI & Machine Learning research |
+
+Each sample contains:
+
+| Field | Description |
+|---|---|
+| `article` | Input — research abstract |
+| `abstract` | Target — summary |
 
 ---
 
 ## 🤖 Model
 
-- **Base Model:** TinyLlama-1.1B (Instruction-tuned)
-- Optimized for fast fine-tuning and low resource usage
+| Property | Value |
+|---|---|
+| **Base Model** | TinyLlama-1.1B-Chat-v1.0 |
+| **Type** | Causal Language Model (LLM) |
+| **Fine-Tuning Method** | PEFT (LoRA) |
 
 ---
 
 ## 🔧 Training Strategy
 
-- Parameter-Efficient Fine-Tuning (PEFT)
-- LoRA applied to transformer layers
-- Trained on a subset of the dataset for rapid experimentation
-- 1–2 epochs with optimized hyperparameters
+### LoRA Configuration
+
+| Parameter | Value |
+|---|---|
+| **Rank (r)** | 8 |
+| **Alpha** | 16 |
+| **Dropout** | 0.05 |
+| **Target Modules** | `q_proj`, `v_proj` |
+
+### Training Setup
+
+| Parameter | Value |
+|---|---|
+| **Epochs** | 1 |
+| **Batch Size** | 2 |
+| **Gradient Accumulation** | 4 |
+| **Learning Rate** | 2e-4 |
+| **Precision** | FP16 (Mixed Precision) |
 
 ---
 
 ## 🧪 Evaluation
 
-### Quantitative Metrics
+### 📊 ROUGE Scores
 
-| Metric | Description |
-|---|---|
-| **ROUGE-1** | Unigram overlap between generated and reference summaries |
-| **ROUGE-2** | Bigram overlap for phrase-level accuracy |
-| **ROUGE-L** | Longest common subsequence for fluency and structure |
+| Metric | Base Model | Fine-Tuned Model | Improvement |
+|:---:|:---:|:---:|:---:|
+| **ROUGE-1** | 0.2950 | 0.3060 | ⬆️ +0.0110 |
+| **ROUGE-2** | 0.0652 | 0.0677 | ⬆️ +0.0025 |
+| **ROUGE-L** | 0.1581 | 0.1974 | 🔥 +0.0393 |
 
-### Qualitative Analysis
+### 📌 Key Insight
 
-Comparison of model outputs before and after fine-tuning to evaluate:
-
-- Summary coherence
-- Relevance
-- Conciseness
-
----
-
-## 📈 Results
-
-| Dimension | 🔴 Before Fine-Tuning | 🟢 After Fine-Tuning |
-|---|---|---|
-| **Summary Quality** | Generic summaries | More structured and relevant summaries |
-| **Domain Awareness** | Less domain awareness | Improved domain understanding |
-| **Contextual Accuracy** | Lower contextual accuracy | Better alignment with research content |
+> The most significant improvement is observed in **ROUGE-L**, indicating better sentence structure, coherence, and overall summary quality after fine-tuning.
 
 ---
 
 ## 💡 Example Output
 
-**Input:**
+**📝 Input (Truncated Abstract)**
 ```
-AI Research Abstract
-```
-
-**🔴 Base Model Output:**
-```
-Generic summary with limited context.
+AI research paper discussing transformer-based architectures...
 ```
 
-**🟢 Fine-Tuned Model Output:**
+**🔴 Base Model Output**
 ```
-Concise, structured summary capturing key research contributions.
+Generic summary with limited structure and relevance.
+```
+
+**🟢 Fine-Tuned Model Output**
+```
+More structured and concise summary capturing key research contributions and context.
 ```
 
 ---
@@ -175,18 +201,26 @@ Concise, structured summary capturing key research contributions.
 
 **2.** Enable **GPU runtime** *(Runtime → Change runtime type → T4 GPU)*
 
-**3.** Install required dependencies
+**3.** Install dependencies
 
-**4.** Run all cells step-by-step:
+**4.** Execute all cells in order:
 
 ```
 01  Load dataset
-02  Preprocess data
+02  Preprocess and tokenize
 03  Apply LoRA (PEFT)
 04  Train model
-05  Evaluate results
+05  Evaluate performance
 06  Generate summaries
 ```
+
+---
+
+## 📦 Model Deployment
+
+The fine-tuned LoRA adapter has been pushed to **Hugging Face Hub** for public access and reuse.
+
+> 👉 **Model Repository:** [https://huggingface.co/your-username/tinyllama-arxiv-lora](https://huggingface.co/Ransilu/tinyllama-arxiv-lora)
 
 ---
 
@@ -194,19 +228,29 @@ Concise, structured summary capturing key research contributions.
 
 | | Highlight | Detail |
 |---|---|---|
-| ⏱️ | **Time-Constrained** | Completed in a **time-constrained environment (1 day)** |
-| 🛠️ | **Practical Skills** | Demonstrates **practical LLM fine-tuning skills** |
-| 📦 | **Real-World Data** | Uses **real-world dataset and evaluation techniques** |
-| 🏭 | **Industry Tools** | Built with **industry-standard tools and workflow** |
+| ⏱️ | **Time-Constrained** | Completed in a **1-day time-constrained setup** |
+| 🔁 | **Full Pipeline** | Demonstrates a **real-world LLM fine-tuning pipeline** |
+| ⚡ | **Efficient Training** | Uses **efficient training via PEFT (LoRA)** |
+| 📐 | **Rigorous Evaluation** | Includes **quantitative + qualitative evaluation** |
+| 🌐 | **Public Deployment** | Deployed to **Hugging Face** for accessibility |
+
+---
+
+## ⚠️ Limitations
+
+- Trained on a relatively small dataset
+- Limited training epochs due to time constraints
+- May not generalize well beyond AI research domain
 
 ---
 
 ## 🔮 Future Improvements
 
+- [ ] Increase dataset size for better generalization
+- [ ] Train for additional epochs
 - [ ] Integrate **Retrieval-Augmented Generation (RAG)**
 - [ ] Deploy as an **API using FastAPI + Docker**
-- [ ] Expand dataset for **better generalization**
-- [ ] Add **UI for real-time summarization**
+- [ ] Build a **frontend interface** for real-time summarization
 
 ---
 
@@ -214,22 +258,26 @@ Concise, structured summary capturing key research contributions.
 
 - [Hugging Face](https://huggingface.co/) for models and datasets
 - Open-source AI community
-- Inspiration from modern GenAI and LLM research
+- Inspiration from modern Generative AI and LLM research
 
 ---
 
-## 📬 Connect with Me
+## 👨‍💻 Author
 
-If you found this project interesting or would like to collaborate, feel free to connect!
+**Ransilu Ranasinghe**
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Your%20Profile-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](www.linkedin.com/in/ransiluranasinghe)
-[![GitHub](https://img.shields.io/badge/GitHub-Your%20Profile-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/RansiluRanasinghe)
+---
+
+## 📬 Contact
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](www.linkedin.com/in/ransiluranasinghe)
+[![GitHub](https://img.shields.io/badge/GitHub-Follow-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/RansiluRanasinghe)
 
 ---
 
 <div align="center">
 
-⭐ **If you like this project, consider giving it a star!** ⭐
+⭐ **If you found this project useful, consider giving it a star!** ⭐
 
 *Built with ❤️ using open-source AI tools*
 
